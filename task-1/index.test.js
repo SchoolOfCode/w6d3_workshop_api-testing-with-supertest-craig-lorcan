@@ -84,7 +84,7 @@ async function getUsernames() {
   return {
     success: true,
     payload: [
-      { username2: "A" },
+      { username: "A" },
       { username: "B" },
       { username: "C" },
       { username: "D" },
@@ -93,14 +93,17 @@ async function getUsernames() {
 }
 
 test("If getUsernames return an object etc.", async () => {
-  
-  expect(await getUsernames()).toStrictEqual({
+
+
+  let actual = await getUsernames();
+
+  expect(actual).toStrictEqual({
     success: true,
-    payload: expect.arrayContaining([      
-      expect.objectContaining({  
-        username: expect.any(String)               
-      })
-    ]),
+    payload: expect.any(Array)
   });
+
+  actual.payload.forEach((user) => {
+    expect(user).toStrictEqual({username: expect.any(String)});
+  })
 
 });
