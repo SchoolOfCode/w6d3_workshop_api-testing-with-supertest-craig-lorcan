@@ -15,6 +15,8 @@ test("Has the structure { success: true }", function () {
   const apiResponse = {
     success: true,
   };
+
+  expect(apiResponse).toStrictEqual({success: expect.any(Boolean)});
 });
 
 /**
