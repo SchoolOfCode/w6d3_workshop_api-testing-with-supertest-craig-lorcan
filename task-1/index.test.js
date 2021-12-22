@@ -16,7 +16,7 @@ test("Has the structure { success: true }", function () {
     success: true,
   };
 
-  expect(apiResponse).toStrictEqual({success: expect.any(Boolean)});
+  expect(apiResponse).toStrictEqual({success: true});
 });
 
 /**
@@ -34,6 +34,9 @@ test("Has the structure { copiesSold: any number, title: any string }", function
     copiesSold: 5014,
     title: "THE LIGHTHOUSE (1984)",
   };
+
+  expect(apiResponse).toStrictEqual({copiesSold: expect.any(Number), title: expect.any(String)});
+
 });
 
 /**
@@ -50,7 +53,7 @@ test("Has the structure { copiesSold: any number, title: any string }", function
  *
  * Since `getAuthentication` is asynchronous, you may need to read up on how to write an asynchronous test in Jest: https://jestjs.io/docs/asynchronous
  */
-test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number } }", function () {
+test("Has the structure { success: true, payload: { hasAuthenticated: true, isAdmin: false, userId: any number }}", async function () {
   async function getAuthentication() {
     return {
       success: true,
@@ -61,7 +64,23 @@ test("Has the structure { success: true, payload: { hasAuthenticated: true, isAd
       },
     };
   }
-});
+  expect(await getAuthentication()).toStrictEqual({success: true,payload: {isAuthenticated: true,isAdmin: false,userId: 125095,}});
+
+  // const actual = await getAuthentication()
+
+  // const expected = {
+  //   success: true,
+  //   payload: {
+  //     isAuthenticated: true,
+  //     isAdmin: false,
+  //     userId: 125095,
+  //   },
+  // };
+
+  // expect(actual).toEqual(expected);
+
+})
+  
 
 /**
  * Write a test that checks whether the asynchronous function `getUsernames`, when called, resolves to an object that has the following structure:
