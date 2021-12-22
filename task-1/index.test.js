@@ -64,21 +64,7 @@ test("Has the structure { success: true, payload: { hasAuthenticated: true, isAd
       },
     };
   }
-  expect(await getAuthentication()).toStrictEqual({success: true,payload: {isAuthenticated: true,isAdmin: false,userId: 125095,}});
-
-  // const actual = await getAuthentication()
-
-  // const expected = {
-  //   success: true,
-  //   payload: {
-  //     isAuthenticated: true,
-  //     isAdmin: false,
-  //     userId: 125095,
-  //   },
-  // };
-
-  // expect(actual).toEqual(expected);
-
+  expect(await getAuthentication()).toStrictEqual({success: true,payload: {isAuthenticated: true,isAdmin: false,userId: expect.any(Number),}});
 })
   
 
@@ -98,10 +84,23 @@ async function getUsernames() {
   return {
     success: true,
     payload: [
-      { username: "A" },
+      { username2: "A" },
       { username: "B" },
       { username: "C" },
       { username: "D" },
     ],
   };
 }
+
+test("If getUsernames return an object etc.", async () => {
+  
+  expect(await getUsernames()).toStrictEqual({
+    success: true,
+    payload: expect.arrayContaining([      
+      expect.objectContaining({  
+        username: expect.any(String)               
+      })
+    ]),
+  });
+
+});
